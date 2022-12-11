@@ -60,49 +60,49 @@ namespace Data.Context
             #region Query Filter
 
             #endregion
-            #region Seed Data For AdminUser
-            modelBuilder.Entity<User>().HasData(new User()
-            {
-                UserId = 1,
-                ActiveCode = Guid.NewGuid().ToString().Replace("-", ""),
-                Email = "seyedalilatifhosseyni@gmail.com",
-                ImageName = "0c508f1b71e8452490487f9d4d9f4263.ico",
-                IsActive = true,
-                IsDelete = false,
-                PassWord = "1234",
-                PhoneNumber = "09386562888",
-                RegisterDate = DateTime.Now,
-                UserName = "admin",
-            });
-            modelBuilder.Entity<Role>().HasData(new Role()
-            {
-                RoleId = 1,
-                RoleTitle = "مدیر سایت",
-            },
-            new Role()
-            {
-                RoleId = 2,
-                RoleTitle = "استاد"
-            },
-            new Role()
-            {
-                RoleId = 3,
-                RoleTitle = "مدیریت کاربران"
-            });
-            modelBuilder.Entity<UserRole>().HasData(new UserRole()
-            {
-                UR_Id = 1,
-                UserId = 1,
-                RoleId = 1
-            },
-            new UserRole()
-            {
-                UR_Id = 2,
-                UserId = 1,
-                RoleId = 2
-            });
+            //#region Seed Data For AdminUser
+            //modelBuilder.Entity<User>().HasData(new User()
+            //{
+            //    UserId = 1,
+            //    ActiveCode = Guid.NewGuid().ToString().Replace("-", ""),
+            //    Email = "seyedalilatifhosseyni@gmail.com",
+            //    ImageName = "0c508f1b71e8452490487f9d4d9f4263.ico",
+            //    IsActive = true,
+            //    IsDelete = false,
+            //    PassWord = "1234",
+            //    PhoneNumber = "09386562888",
+            //    RegisterDate = DateTime.Now,
+            //    UserName = "admin",
+            //});
+            //modelBuilder.Entity<Role>().HasData(new Role()
+            //{
+            //    RoleId = 1,
+            //    RoleTitle = "مدیر سایت",
+            //},
+            //new Role()
+            //{
+            //    RoleId = 2,
+            //    RoleTitle = "استاد"
+            //},
+            //new Role()
+            //{
+            //    RoleId = 3,
+            //    RoleTitle = "مدیریت کاربران"
+            //});
+            //modelBuilder.Entity<UserRole>().HasData(new UserRole()
+            //{
+            //    UR_Id = 1,
+            //    UserId = 1,
+            //    RoleId = 1
+            //},
+            //new UserRole()
+            //{
+            //    UR_Id = 2,
+            //    UserId = 1,
+            //    RoleId = 2
+            //});
 
-            #endregion
+            //#endregion
 
         }
 

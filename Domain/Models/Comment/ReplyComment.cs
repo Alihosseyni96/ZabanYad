@@ -23,6 +23,7 @@ namespace Domain.Models.Comment
         public DateTime CreateDate { get; set; }
         [Required]
         public bool IsDelete { get; set; }
+        public bool IsAnswer { get; set; }
 
         #region Relations
 

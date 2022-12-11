@@ -87,6 +87,9 @@ namespace Core.ViewModels
         public string ReplyBody { get; set; }
         public string UserName { get; set; }
         public DateTime CreateDate { get; set; }
+        public bool IsAnswer { get; set; }
+        public bool IsReplyForUserAsk { get; set; }
+        public int ReplyId { get; set; }
     }
 
     public class ShowCartDetailsViewMode

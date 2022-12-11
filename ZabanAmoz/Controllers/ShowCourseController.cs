@@ -58,6 +58,14 @@ namespace ZabanAmoz.Controllers
             _commentService.AddReply(replyBody, commentId);
             return Redirect("/ShowCourse/Index?courseId=" + courseId +"&replyStatus="+true);
         }
+        
+        public IActionResult SelectTrueReply(int replyId , int commentId , int coreseId)
+        {
+            _commentService.SelectTrueReply(replyId, commentId);
+            return Redirect("/ShowCourse/Index?courseId="+coreseId);
+        }
+
+
 
         public IActionResult RateCourse(int courseId , int rate)
         {

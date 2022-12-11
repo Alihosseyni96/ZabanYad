@@ -44,7 +44,7 @@ namespace ZabanAmoz
             services.AddSingleton<ISchedulerFactory, StdSchedulerFactory>();
             services.AddSingleton<DailySiteRateJob>();
             services.AddSingleton(new JobSchedule(jobType: typeof(DailySiteRateJob), cronExpression:
-                "0 0/1 * * * ?"
+                "0 15 10 * * ? *"
                 ));
             services.AddHostedService<QuartzHostedService>();
 

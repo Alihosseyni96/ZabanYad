@@ -85,11 +85,21 @@ namespace Core.Services
 
         public List<ShowCommentReplies> GetCommentReplies(int commentId)
         {
+            int? userId= int.Parse(_httpContextAccessor.HttpContext.User.Claims.FirstOrDefault(u =>
+                 u.Type == ClaimTypes.NameIdentifier).Value);
+
+            bool isReplyForUserAsk = _commentRepository.Get(c =>
+            c.CommentId == commentId && !c.IsDelete && c.UserId == userId).Any();
+
             return _replyCommentRepository.Get(c => c.CommentId == commentId && !c.IsDelete).Include(c => c.User).Select(c => new ShowCommentReplies()
             {
                 CreateDate = c.CreateDate,
                 ReplyBody = c.ReplyBody,
-                UserName = c.User.UserName
+                UserName = c.User.UserName,
+                IsAnswer = c.IsAnswer,
+                IsReplyForUserAsk = isReplyForUserAsk,
+                ReplyId = c.ReplyCommentId,
+                
             }).OrderByDescending(c => c.CreateDate).ToList();
         }
 
@@ -118,7 +128,8 @@ namespace Core.Services
                     ImageName = c.User.ImageName,
                     Like = c.CommentLike,
                     Reply = c.ReplyComments.Where(r => !r.IsDelete).Count(),
-                    UserName = c.User.UserName
+                    UserName = c.User.UserName,
+                    
                 }).ToList();
         }
 
@@ -150,6 +161,19 @@ namespace Core.Services
             Comment comment = _commentRepository.Get(c => c.CommentId == commentId).Single();
             comment.Show = false;
             _commentRepository.UpdateEntity(comment);
+        }
+
+        public void SelectTrueReply(int replyId, int commentId)
+        {
+            List<ReplyComment> replies = _replyCommentRepository.Get(r => r.CommentId == commentId).ToList();
+            foreach (var reply in replies)
+            {
+                reply.IsAnswer = false;
+                _replyCommentRepository.UpdateEntity(reply);
+            }
+            ReplyComment selectedReply = _replyCommentRepository.Get(r => r.ReplyCommentId == replyId).Single();
+            selectedReply.IsAnswer = true;
+            _replyCommentRepository.UpdateEntity(selectedReply);
         }
 
         public void ShowComment(int commentId)

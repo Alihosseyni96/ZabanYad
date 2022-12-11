@@ -22,6 +22,7 @@ namespace Core.IServices
         CommentBodyViewModel GetCommentBody(int commentId);
         List<ReplyCommentsBody> GetCommentRepliesForAdmin(int commentId);
         void DeleteReply(int replyId);
+        void SelectTrueReply(int replyId, int commentId);
 
     }
 }
