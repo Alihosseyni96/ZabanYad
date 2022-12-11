@@ -1,0 +1,69 @@
+﻿@model SendMessageViewModel
+
+<ol class="breadcrumb">
+    <li class="breadcrumb-item">
+        <a href="#">داشبورد</a>
+    </li>
+    <li class="breadcrumb-item active">ارسال پیام جدید  </li>
+</ol>
+@if (ViewBag.sendMessageStatus == true)
+{
+    <div class="alert alert-success">
+        <p class="help-block">پیام شما با موفقیت ارسال شد</p>
+    </div>
+
+    <script>
+        // Your delay in milliseconds
+        var delay = 4000;
+        setTimeout(function () { window.location = "https://localhost:44395/UserPanel/Message/ShowSendMessages"; }, delay);
+    </script>
+
+}
+
+
+<div class="box_general">
+    <h4> ارسال پیام </h4>
+    <hr />
+    <div class="list_general">
+
+        <form action="/UserPanel/Message/SendMessage" method="post">
+            <div class="form-group">
+                <label> نام کاربری گیرنده</label>
+                <input type="text" asp-for="RecieverName" class="form-control">
+                <span asp-validation-for="RecieverName" id="validation"></span>
+            </div>
+
+            <div class="form-group">
+                <label> موضوع پیام  </label>
+                <input type="text" asp-for="MessageTitle" class="form-control">
+                <span asp-validation-for="MessageTitle" id="validation"></span>
+
+            </div>
+
+            <div class="form-group">
+                <label> متن پیام   </label>
+                <textarea rows="10" asp-for="MessageBody"></textarea>
+                <span asp-validation-for="MessageBody" id="validation"></span>
+
+            </div>
+
+            <input type="submit" value="ارسال " class="btn btn-block  btn-success" >
+
+        </form>
+
+
+    </div>
+</div>
+
+@section Scripts{
+    <script src="https://cdn.ckeditor.com/4.9.2/standard/ckeditor.js"></script>
+    <script>
+
+        CKEDITOR.replace('MessageBody', {
+            customConfig: '/js/Config.js'
+        });
+
+    </script>
+
+
+}

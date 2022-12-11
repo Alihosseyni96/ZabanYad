@@ -1,0 +1,82 @@
+﻿@model ChargeWalletViewModel
+
+<ol class="breadcrumb">
+    <li class="breadcrumb-item">
+        <a href="#">داشبورد</a>
+    </li>
+    <li class="breadcrumb-item active"> کیف پول و تراکنش های شما  </li>
+</ol>
+
+
+
+<div class="box_cart">
+    <div class="form_title">
+        <h3><strong>1</strong>شارژ کیف پول </h3>
+        <p>
+            در این قسمت میتوانید کیف پول خود را شارژ کنید
+        </p>
+    </div>
+    <div class="step">
+        <div class="row">
+            <form action="/UserPanel/Wallet/Index" method="post">
+                <div class="form-group">
+                    <span class="input">
+                        <input class="input_field" asp-for="Amount" type="text" autocomplete="off" placeholder="مبلغ را به تومان وارد کنید">
+                        <span asp-validation-for="Amount" id="validation"></span>
+                        <label class="input_label">
+                            <span class="input__label-content">   </span>
+                        </label>
+                    </span>
+                    <input type="submit" value="شارژ شود" class="btn btn-success" />
+
+                </div>
+
+
+            </form>
+        </div>
+    </div>
+</div>
+<hr>
+<!--End step -->
+@{
+    List<ShowAllTransaction> Transactions = ViewBag.Transactions as List<ShowAllTransaction>;
+}
+
+<div class="form_title">
+    <h3><strong>2</strong>تراکنش های شما </h3>
+    <p>
+        لیست تمام تراکنش های  شما به شرح زیر است
+    </p>
+</div>
+<br />
+<br />
+
+<table class="table table-active">
+    <thead>
+        <tr>
+            <th scope="col">شناسه تراکنش</th>
+            <th scope="col"> نوع تراکنش </th>
+            <th scope="col">توضیحات</th>
+            <th scope="col">مبلغ تراکنش</th>
+            <th scope="col"> تاریخ تراکنش  </th>
+            <th scope="col">وضعیت تراکنش</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Transactions)
+        {
+            <tr class=" table-@((item.IsFinal)?"":"danger")">
+                <td>@((item.TransactionNumber!=0)?item.TransactionNumber:"-")</td>
+                <td>@item.type</td>
+                <td>@item.Description</td>
+                <td>@item.Amount.ToString("#,0")</td>
+                <td>@item.CreateDate.ToShamsi()</td>
+                <td>@((item.IsFinal) ? "موفق" : "ناموفق")</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+
+</div><div class="resize-sensor" style="position: absolute; inset: 0px; overflow: hidden; z-index: -1; visibility: hidden;"><div class="resize-sensor-expand" style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; overflow: hidden; z-index: -1; visibility: hidden;"><div style="position: absolute; left: 0px; top: 0px; transition: all 0s ease 0s; width: 295px; height: 1281px;"></div></div><div class="resize-sensor-shrink" style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; overflow: hidden; z-index: -1; visibility: hidden;"><div style="position: absolute; left: 0; top: 0; transition: 0s; width: 200%; height: 200%"></div></div></div>

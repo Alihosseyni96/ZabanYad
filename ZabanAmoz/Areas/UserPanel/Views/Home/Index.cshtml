@@ -1,0 +1,55 @@
+﻿@model UserPanelDetailsViewModel
+
+<link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon">
+<link rel="apple-touch-icon" type="image/x-icon" href="/img/apple-touch-icon-57x57-precomposed.png">
+<link rel="apple-touch-icon" type="image/x-icon" sizes="72x72" href="/img/apple-touch-icon-72x72-precomposed.png">
+<link rel="apple-touch-icon" type="image/x-icon" sizes="114x114" href="/img/apple-touch-icon-114x114-precomposed.png">
+<link rel="apple-touch-icon" type="image/x-icon" sizes="144x144" href="/img/apple-touch-icon-144x144-precomposed.png">
+
+
+<ol class="breadcrumb">
+    <li class="breadcrumb-item">
+        <a href="#">داشبورد</a>
+    </li>
+    <li class="breadcrumb-item active"> جزئیات پروفایل </li>
+</ol>
+
+
+<div class="box_general padding_bottom">
+    <div class="header_box version_2">
+        <h2><i class="fa fa-user"></i>جزئیات پروفایل</h2>
+    </div>
+
+    <div class=" col-md-4" style="padding-top: 0px;margin-right:500px; padding-bottom: 1px; position: static; transform: none; left: 1251.5px; top: 0px;">
+        <div class="profile">
+            <figure style="margin-right:80px;margin-top:25px;padding-bottom:20px"><img src="/UserImg/@Model.ImageName" style="max-width:250px" alt="Teacher" class="rounded-circle"></figure>
+            <ul class="social_teacher">
+                <li><a href="#"><i class="icon-facebook"></i></a></li>
+                <li><a href="#"><i class="icon-twitter"></i></a></li>
+                <li><a href="#"><i class="icon-linkedin"></i></a></li>
+                <li><a href="#"><i class="icon-email"></i></a></li>
+            </ul>
+            <ul>
+                <li>نام کاربری <span class="float-right">@Model.UserName </span> </li>
+                <li>ایمیل <span class="float-right">@Model.Email</span></li>
+                <li>شماره تماس <span class="float-right">@Model.PhoneNumber</span></li>
+                <li>نوع کاربر  <span class="float-right">عادی</span></li>
+                <li> موجودی کیف پول  <span class="float-right">@Model.WalletRest.ToString("#,0") تومان</span></li>
+                <li>تاریخ عضویت <span class="float-right">@Model.RegisterDate.ToShamsi()</span></li>
+            </ul>
+        </div><div class="resize-sensor" style="position: absolute; inset: 0px; overflow: hidden; z-index: -1; visibility: hidden;"><div class="resize-sensor-expand" style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; overflow: hidden; z-index: -1; visibility: hidden;"><div style="position: absolute; left: 0px; top: 0px; transition: all 0s ease 0s; width: 295px; height: 1281px;"></div></div><div class="resize-sensor-shrink" style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; overflow: hidden; z-index: -1; visibility: hidden;"><div style="position: absolute; left: 0; top: 0; transition: 0s; width: 200%; height: 200%"></div></div></div>
+    </div>
+</div>
+
+
+
+
+
+
+@section Scripts{
+    <script src="/js/jquery-2.2.4.min.js"></script>
+    <script src="/js/common_scripts.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/assets/validate.js"></script>
+
+}

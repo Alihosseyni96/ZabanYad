@@ -1,0 +1,33 @@
+﻿@model ShowRecievedMessageBodyViewModel
+<ol class="breadcrumb">
+    <li class="breadcrumb-item">
+        <a href="#">داشبورد</a>
+    </li>
+    <li class="breadcrumb-item active">پیام های شما  </li>
+</ol>
+
+<div class="header_box col-md-8">
+    <h2 class="d-inline-block">پیام  </h2>
+</div>
+
+
+
+<div class="col-md-8">
+    <li>
+        <figure><img src="/UserImg/@Model.SenderImageName"  alt="" style="max-width:250px"></figure>
+        <h4>پیام  </h4>
+        <ul class="course_list">
+            <li><strong>تاریخ ارسال</strong> @Model.CreateDate.ToShamsi() </li>
+            <li><strong>فرستنده </strong>  @Model.SenderName </li>
+        </ul>
+        <h6>@Model.MessageTitle</h6>
+        <p>@Html.Raw(Model.MesssageBody) </p>
+        <ul class="buttons">
+            <li><a href="#0" class="btn_1 gray approve"><i class="fa fa-fw fa-check-circle-o"></i> حذف پیام</a></li>
+            <li><a href="#0" class="btn_1 gray delete"><i class="fa fa-fw fa-times-circle-o"></i> ارسال پاسخ</a></li>
+        </ul>
+    </li>
+
+
+</div>
+

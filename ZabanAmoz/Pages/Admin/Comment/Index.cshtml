@@ -1,0 +1,85 @@
+﻿@page
+@model ZabanAmoz.Pages.Admin.Comment.IndexModel
+@{
+    int currentComment = Model.Comments.Item1.Count();
+}
+<div id="mainElement">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="#">پنل مدیریت</a>
+        </li>
+        <li class="breadcrumb-item active">  مدیریت   نظر ها و پسرش پاسخ ها </li>
+    </ol>
+
+
+    <div class="box_general padding_bottom">
+        <div class="header_box version_2">
+            <h2><i class="fa fa-user"></i>  مدیریت   نظر ها و پسرش پاسخ ها  </h2>
+        </div>
+        <div>
+
+
+            <br />
+            <hr />
+            <form class="d-flex" method="post">
+                <button class="btn btn-primary me-1" type="submit">جستجو</button>
+                <input class="form-control col-md-3" value="@ViewData["SearchKey"]" asp-for="@Model.SearchBox" type="search" placeholder="جستجو بر اساس(نام-نام دوره)" aria-label="Search">
+            </form>
+        </div>
+
+        <br />
+        <br />
+        <div class="table-responsive">
+            <table class="table  table-bordered">
+                <thead>
+                    <tr>
+                        <th scope="col"> نام شخص  </th>
+                        <th scope="col"> برای دوره    </th>
+                        <th scope="col">تاریخ ایجاد </th>
+                        <th scope="col">وضعیت نمایش  </th>
+                        <th scope="col">تعداد پاسخ ها </th>
+                        <th scope="col">دستورات   </th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var comment in Model.Comments.Item1)
+                    {
+                        <tr>
+                            <td>@comment.UserName</td>
+                            <td>@comment.CourseName</td>
+                            <td>@comment.CreateDate.ToShamsi()</td>
+                            <td><i class="@((comment.Show)?"icon-ok-circled":"icon-cancel-circled")"></i></td>
+                            <td>@comment.Replyies</td>
+                            <td>
+                                <a href="/Admin/Comment/CommentBody?commentId=@comment.CommentId" class="btn btn-primary">نمایش متن و پاسخ ها    </a>
+                                <a href="/Admin/Comment/DeleteComment?commentId=@comment.CommentId&take=@currentComment&searchKey=@ViewData["SearchKey"]" class="btn btn-danger">حذف   </a>
+                                @if (comment.Show)
+                                {
+                                    <a href="/Admin/Comment/NoShowComment?commentId=@comment.CommentId&take=@currentComment&searchKey=@ViewData["SearchKey"]" class="btn btn-info">عدم نمایش   </a>
+
+                                }
+                                else
+                                {
+                                    <a href="/Admin/Comment/ShowComment?commentId=@comment.CommentId&take=@currentComment&searchKey=@ViewData["SearchKey"]" class="btn btn-info">نمایش   </a>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+    @{
+        int take = Model.Comments.Item1.Count() + 5;
+    }
+
+    @if (Model.Comments.Item1.Count() < Model.Comments.Item2)
+    {
+        <p class="text-center add_top_60"><a href="/Admin/Comment/Index?take=@take&searchKey=@ViewData["SearchKey"]" class="btn_1 rounded">بارگذاری بیشتر</a></p>
+
+    }
+
+</div>

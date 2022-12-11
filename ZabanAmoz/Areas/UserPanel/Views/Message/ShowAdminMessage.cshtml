@@ -1,0 +1,61 @@
+﻿@model Tuple<List<AdminMessageViewModel>,int>
+
+<ol class="breadcrumb">
+    <li class="breadcrumb-item">
+        <a href="#">داشبورد</a>
+    </li>
+    <li class="breadcrumb-item active">پیام های مدیریت  </li>
+</ol>
+
+<div class="box_general">
+    <h4>پیام های مدیریت </h4>
+    <div class="list_general">
+        <ul>
+            @foreach (var item in Model.Item1)
+            {
+                <li class="@((item.IsRead)?"":"list-group-item-info")">
+                    <span> تاریخ ارسال پیام:@item.CreateDate.ToShamsi() </span>
+                    <figure><img src="/UserImg/admin.jpg" alt=""></figure>
+                    <h4>فرستنده :@item.SenderRole </h4>
+                    <p> موضوع:@item.MessageTitle </p>
+                    <a href="/UserPanel/Message/ShowAdminMessageBody?messageId=@item.id" class="btn btn-primary">مشاهده پیام</a>
+                </li>
+
+            }
+        </ul>
+    </div>
+</div>
+
+<!--Page Ination  without search Filter-->
+
+<ul class="pagination pagination-sm add_bottom_30">
+
+    @if (ViewBag.CurrentPage > 1)
+    {
+        <li class="page-item ">
+            <a class="page-link" href="/UserPanel/Message/ShowAdminMessage?pageId=1)">اولین</a>
+        </li>
+        <li class="page-item ">
+            <a class="page-link" href="/UserPanel/Message/ShowAdminMessage?pageId=@(ViewBag.CurrentPage - 1)">قبلی</a>
+        </li>
+    }
+    @if (Model.Item2 > 1)
+    {
+        @for (int i = (ViewBag.CurrentPage - 2 > 0) ? i = ViewBag.CurrentPage - 2 : i = 1; (ViewBag.CurrentPage + 2 > Model.Item2) ? i <= Model.Item2 : i < ViewBag.CurrentPage + 2; i++)
+        {
+            <li class="page-item @((ViewBag.CurrentPage==i)?"active":"") "><a class="page-link " href="/UserPanel/Message/ShowAdminMessage?pageId=@i">@i</a></li>
+        }
+
+    }
+    @if (ViewBag.CurrentPage < Model.Item2)
+    {
+        <li class="page-item ">
+            <a class="page-link" href="/UserPanel/Message/ShowAdminMessage?pageId=@(ViewBag.CurrentPage + 1)">بعدی</a>
+        </li>
+
+        <li class="page-item ">
+            <a class="page-link" href="/UserPanel/Message/ShowAdminMessage?pageId=@Model.Item2">آخرین</a>
+        </li>
+    }
+</ul>
+<!--Page Ination  without search Filter-->

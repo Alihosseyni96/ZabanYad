@@ -1,0 +1,56 @@
+﻿@page
+@model ZabanAmoz.Pages.Admin.Episode.EditEpisodeModel
+@{
+}
+<ol class="breadcrumb">
+    <li class="breadcrumb-item">
+        <a href="#">پنل مدیریت</a>
+    </li>
+    <li class="breadcrumb-item active">  مدیریت دوره ها  </li>
+    <li class="breadcrumb-item active">  ویرایش قسمت      </li>
+
+</ol>
+<div class="box_general padding_bottom">
+    <div class="header_box version_2">
+        <h2><i class="fa fa-file"></i>ویرایش قسمت  </h2>
+    </div>
+    <form method="post" enctype="multipart/form-data">
+        <input type="hidden"  asp-for="EditEpisode.CourseId" />
+        <input type="hidden" asp-for="EditEpisode.episodeId" />
+        <input type="hidden" asp-for="EditEpisode.EpisodeFileName" />
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>عنوان قسمت </label>
+                    <input type="text" class="form-control" asp-for="EditEpisode.EpissodeTitle" placeholder="عنوان قسمت  ">
+                    <span asp-validation-for="EditEpisode.EpissodeTitle" id="validation"></span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>مدت زمان قسمت  </label>
+                    <input class="form-control" asp-for="EditEpisode.EpisodeTime" placeholder="  زمان قسمت(00:00:00)    ">
+                    <span asp-validation-for="EditEpisode.EpisodeTime" id="validation"></span>
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label>فایل قسمت   </label>
+                    <input type="file" class="form-control" asp-for="EditEpisode.NewEpisodeFile">
+                    <span asp-validation-for="EditEpisode.NewEpisodeFile" id="validation"></span>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <input type="checkbox" asp-for="EditEpisode.IsFree">
+                <label>  رایگان است  </label>
+                <span asp-validation-for="EditEpisode.IsFree" id="validation"></span>
+
+            </div>
+            <hr />
+            <div>
+                <input type="submit" class="btn btn-success btn-sm" value="ثبت قسمت " />
+            </div>
+        </div>
+    </form>
+</div>

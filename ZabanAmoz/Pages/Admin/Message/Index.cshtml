@@ -1,0 +1,103 @@
+﻿@page
+@model ZabanAmoz.Pages.Admin.Message.IndexModel
+@{
+}
+<ol class="breadcrumb">
+    <li class="breadcrumb-item">
+        <a href="#">پنل مدیریت</a>
+    </li>
+    <li class="breadcrumb-item active">  مدیریت پیام های مدیریت    </li>
+</ol>
+
+
+<div class="box_general padding_bottom">
+    <div class="header_box version_2">
+        <h2><i class="fa fa-user"></i>پیام های مدیریت    </h2>
+    </div>
+    <div>
+
+        <br />
+        <hr />
+        <a href="/Admin/Message/SendAdminMessage" class="btn btn-secondary"> ارسال پیام جدید   </a>
+
+    </div>
+
+    <br />
+    <br />
+    <div class="table-responsive">
+        <table class="table  table-bordered">
+            <thead>
+                <tr>
+                    <th scope="col">نام فرستنده    </th>
+                    <th scope="col">نقش فرستنده    </th>
+                    <th scope="col">موضوع پیام </th>
+                    <th scope="col">گیرندگان   </th>
+                    <th scope="col">تاریخ ارسال       </th>
+                    <th scope="col"> وضعیت پیام </th>
+                    <th scope="col">دستورات   </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.MessageList.Item1)
+                {
+                    <tr class="alert alert-@((item.IsDelete)?"warning":"")">
+                        <td scope="col">@item.SenderName     </td>
+                        <td scope="col">@item.SenderRoles     </td>
+                        <td scope="col"> @item.MessageTitle </td>
+                        <td scope="col">@item.ReceiverGroups   </td>
+                        <td scope="col">@item.CreateDate.ToShamsi()  </td>
+                        <td scope="col">  @((item.IsDelete) ? "حذف شده" : "") </td>
+                        <td scope="col">
+                            @if (item.IsDelete)
+                            {
+                                <a href="/Admin/Message/ReturnAdminMessage?messageId=@item.AdminMessageId&pageId=@ViewData["CurrentPage"]" class="btn btn-success">بازگرداندن پیام </a>
+                            }
+                            else
+                            {
+                                <a href="/Admin/Message/DeleteAdminMessage?messageId=@item.AdminMessageId&pageId=@ViewData["CurrentPage"]" class="btn btn-danger">حذف پیام</a>
+
+                            }
+                            <a href="/Admin/Message/AdminMessagebody?messageId=@item.AdminMessageId" class="btn btn-primary">مشاهده کامل پیام </a>
+
+                        </td>
+                    </tr>
+
+                }
+
+            </tbody>
+        </table>
+    </div>
+</div>
+<!--Page Ination  without search Filter-->
+
+<ul class="pagination pagination-sm add_bottom_30">
+
+    @if (int.Parse(ViewData["CurrentPage"].ToString()) > 1)
+    {
+        <li class="page-item ">
+            <a class="page-link" href="/Admin/Message/Index?pageId=1)">اولین</a>
+        </li>
+        <li class="page-item ">
+            <a class="page-link" href="/Admin/Message/Index?pageId=@(int.Parse(ViewData["CurrentPage"].ToString()) - 1)">قبلی</a>
+        </li>
+    }
+    @if (Model.MessageList.Item2 > 1)
+    {
+        @for (int i = (ViewBag.CurrentPage - 2 > 0) ? i = ViewBag.CurrentPage - 2 : i = 1; (int.Parse(ViewData["CurrentPage"].ToString()) + 2 > Model.MessageList.Item2) ? i <= Model.MessageList.Item2 : i < ViewBag.CurrentPage + 2; i++)
+        {
+            <li class="page-item @((int.Parse(ViewData["CurrentPage"].ToString())==i)?"active":"") "><a class="page-link " href="/Admin/Message/Index?pageId=@i">@i</a></li>
+        }
+
+    }
+    @if (ViewBag.CurrentPage < Model.MessageList.Item2)
+    {
+        <li class="page-item ">
+            <a class="page-link" href="/Admin/Message/Index?pageId=@(int.Parse(ViewData["CurrentPage"].ToString()) + 1)">بعدی</a>
+        </li>
+
+        <li class="page-item ">
+            <a class="page-link" href="/Admin/Message/Index?pageId=@Model.MessageList.Item2">آخرین</a>
+        </li>
+    }
+</ul>
+<!--Page Ination  without search Filter-->

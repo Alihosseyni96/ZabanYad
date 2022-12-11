@@ -1,0 +1,179 @@
+﻿@using Core.IServices
+@inject IIndexService _indexService;
+@{
+    bool showAdminButton = _indexService.ShowAdminButton();
+}
+<!DOCTYPE html>
+<!-- saved from url=(0040)http://www.ansonika.com/udema/index.html -->
+<!-- Mirrored from mwhtml.ir/udema/html_menu_1/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 12 Sep 2022 19:39:54 GMT -->
+<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Udema a modern educational site template">
+    <meta name="author" content="Ansonika">
+    <title>ZabanYad | زبان یاد    </title>
+
+    <!-- Favicons-->
+    <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" type="/image/x-icon" href="/img/apple-touch-icon-57x57-precomposed.png">
+    <link rel="apple-touch-icon" type="/image/x-icon" sizes="72x72" href="/img/apple-touch-icon-72x72-precomposed.png">
+    <link rel="apple-touch-icon" type="/image/x-icon" sizes="114x114" href="/img/apple-touch-icon-114x114-precomposed.png">
+    <link rel="apple-touch-icon" type="/image/x-icon" sizes="144x144" href="/img/apple-touch-icon-144x144-precomposed.png">
+
+    <!-- BASE CSS -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/style.css" rel="stylesheet">
+    <link href="/css/vendors.css" rel="stylesheet">
+    <link href="/css/icon_fonts/css/all_icons.min.css" rel="stylesheet">
+    <link href="~/css/stylesheet.css" rel="stylesheet" />
+    <link href="~/css/pure_rte.css" rel="stylesheet" />
+
+    <!-- YOUR CUSTOM CSS -->
+    <link href="/css/custom.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+    <div id="page">
+
+        <header class="header menu_2">
+            <div id="preloader"><div data-loader="circle-side"></div></div><!-- /Preload -->
+            <div id="logo">
+                <a href="/"><img src="/img/logo.png" width="149" height="42" data-retina="true" alt=""></a>
+            </div>
+            <ul id="top_menu">
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <li class="hidden_tablet">
+                        <a href="/Account/Logout" class="btn_1 rounded  icon-logout-1 ">خروج</a>
+                    </li>
+                    <li class="hidden_tablet">
+                        <a href="/BuyCourse/ShowCart" class="btn_1 rounded  icon-cart ">سبد خرید</a>
+                    </li>
+
+                }
+                else
+                {
+                    <li class="hidden_tablet "><a href="/Account/Login" class="btn_1 rounded icon-login-1 ">ورود</a></li>
+                    <li class="hidden_tablet"><a href="/Account/Register" class="btn_1 rounded ">ثبت نام</a></li>
+                }
+
+            </ul>
+            <!-- /top_menu -->
+            <a href="#menu" class="btn_mobile">
+                <div class="hamburger hamburger--spin" id="hamburger">
+                    <div class="hamburger-box">
+                        <div class="hamburger-inner"></div>
+                    </div>
+                </div>
+            </a>
+            <nav id="menu" class="main-menu  ">
+                <ul>
+                    <li class="text-left"><span><a href="/Home/Index" target="_parent">  خانه   </a></span></li>
+                    <li class="text-left"><span><a href="/CourseList/Index" target="_parent"> لیست تمامی دوره ها </a></span></li>
+                    @await Component.InvokeAsync("MainSideBarGroupsComponent")
+                    @if (showAdminButton)
+                    {
+                        <li class="text-left"><span><a href="/Admin/Dashboard/Index" target="_parent"> پنل مدیریت سایت </a></span></li>
+
+                    }
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <li class="text-left"><span><a href="/UserPanel/Home/Index" target="_parent"> پنل کاربری شما  </a></span></li>
+                        <li class="text-left d-lg-none "><span><a href="/Account/Logout" target="_parent">  خروج   </a></span></li>
+
+                    }
+                    @if (!User.Identity.IsAuthenticated)
+                    {
+                        <li class="text-left d-lg-none "><span><a href="/Account/Register" target="_parent">  ثبت نام   </a></span></li>
+                        <li class="text-left d-lg-none "><span><a href="/Account/Login" target="_parent">  ورود   </a></span></li>
+
+                    }
+
+                </ul>
+            </nav>
+            <!-- Search Menu -->
+            <div class="search-overlay-menu">
+                <span class="search-overlay-close"><span class="closebt"><i class="ti-close"></i></span></span>
+                <form role="search" id="searchform" method="get" action="/CourseList/Index">
+                    <input value="" name="searchKey" type="search" placeholder="جستجو..." />
+                    <button type="submit">
+                        <i class="icon_search"></i>
+                    </button>
+                </form>
+            </div><!-- End Search Menu -->
+        </header>
+        <!-- /header -->
+
+        <main>
+            <section class="hero_single version_2">
+                <div class="wrapper">
+                    <div class="container">
+                        @RenderSection("Header",false)
+                    </div>
+                </div>
+            </section>
+            <!-- /hero_single -->
+            @RenderBody()
+            <!--/call_section-->
+        </main>
+        <!-- /main -->
+
+        <footer>
+            <div class="container margin_120_95">
+                <div class="row">
+                    <div class="col-lg-5 col-md-12 p-r-5">
+                        <p><img src="/img/logo.png" width="149" height="42" data-retina="true" alt=""></p>
+                        <p> این سایت صرفا یک نمونه ازمایشی است با محتوای کپی برداری شده که با یک قالب آماده و تکنولوژی قدرتمتند .net نوشته شده است </p>
+                    </div>
+                    <div class="col-lg-3 col-md-6 ml-lg-auto">
+                        <h5>لینک های مفید</h5>
+                        <ul class="links">
+                            <li><a href="/Account/Register">پذیرش</a></li>
+                            <li><a href="/Account/Login">ورود</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <h5>تماس با ما</h5>
+                        <ul class="contacts">
+                            <li><a href=""><i class="ti-mobile"></i> 09386562888</a></li>
+                            <li><a href=""><i class="ti-email"></i> seyedalilatifhosseyni@gmail.com</a></li>
+                        </ul>
+                        <div id="newsletter">
+                        </div>
+                    </div>
+                </div>
+                <!--/row-->
+                <hr>
+                <div class="row">
+                    <div class="col-md-8">
+                    </div>
+                    <div class="col-md-4">
+                        <div id="copy">  این سایت صرفا یک نمونه ازمایشی است با محتوای کپی برداری شده که با یک قالب آماده و تکنولوژی قدرتمتند .net نوشته شده است</div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!--/footer-->
+    </div>
+    <!-- page -->
+    <!-- COMMON SCRIPTS -->
+    <script src="/js/jquery-2.2.4.min.js"></script>
+    <script src="/js/common_scripts.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/assets/validate.js"></script>
+    <script src="~/js/pure_rte_lite.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+    @RenderSection("Scripts",false)
+
+</body>
+
+<!-- Mirrored from mwhtml.ir/udema/html_menu_1/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 12 Sep 2022 19:40:51 GMT -->
+</html>

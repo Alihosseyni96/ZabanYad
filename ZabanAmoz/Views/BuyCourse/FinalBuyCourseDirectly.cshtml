@@ -1,0 +1,56 @@
+﻿@section Header{
+    <h3>مراحل خرید شما</h3>
+    <div class="container">
+        <div class="bs-wizard clearfix">
+            <div class="bs-wizard-step active">
+                <div class="text-center bs-wizard-stepnum">سبد خرید</div>
+                <div class="progress">
+                    <div class="progress-bar"></div>
+                </div>
+                <a href="#0" class="bs-wizard-dot"></a>
+            </div>
+
+            <div class="bs-wizard-step active">
+                <div class="text-center bs-wizard-stepnum">پرداخت</div>
+                <div class="progress">
+                    <div class="progress-bar"></div>
+                </div>
+                <a href="#0" class="bs-wizard-dot"></a>
+            </div>
+
+            <div class="bs-wizard-step active">
+                <div class="text-center bs-wizard-stepnum">پایان!</div>
+                <div class="progress">
+                    <div class="progress-bar"></div>
+                </div>
+                <a href="#0" class="bs-wizard-dot"></a>
+            </div>
+        </div>
+        <!-- End bs-wizard -->
+    </div>
+}
+    <div class="container margin_60_35" style="transform: none;">
+        <div class="row" style="transform: none;">
+            <div class="col-lg-8">
+                <div class="box_cart">
+                    <h3>نتیجه خرید  </h3>
+                    <hr />
+                    <div class="step">
+                        <div class="row">
+                        @if (ViewBag.SuccessPayment == true)
+                        {
+                            <div class="alert alert-success"> پرداخت شما با موفقیت انجام گردیده  جهت مشاهده لیست دوره های خریداری شده به پنل کاربری خود مراجعه نمایید. (شناسه تراکنش :@ViewBag.PaymentCode) </div>
+                        }
+                        else
+                        {
+                            <div class="alert alert-warning"> پرداخت با خطا مواجه شده است </div>
+                        }
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+

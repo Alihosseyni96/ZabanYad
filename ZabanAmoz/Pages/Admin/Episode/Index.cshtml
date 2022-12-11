@@ -1,0 +1,56 @@
+﻿@page
+@model ZabanAmoz.Pages.Admin.Episode.IndexModel
+@{
+}
+<div id="mainElement">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="#">پنل مدیریت</a>
+        </li>
+        <li class="breadcrumb-item active">  مدیریت  قسمت ها </li>
+    </ol>
+
+
+    <div class="box_general padding_bottom">
+        <div class="header_box version_2">
+            <h2><i class="fa fa-user"></i>  مدیریت قسمت های دوره :@Model.Course.CourseName  </h2>
+        </div>
+        <div>
+
+
+            <br />
+            <hr />
+            <a href="/Admin/Episode/CreateEpisode?courseId=@Model.Course.CourseId" class="btn btn-secondary"> افزودن قسمت جدید  </a>
+
+        </div>
+
+        <br />
+        <br />
+        <div class="table-responsive">
+            <table class="table  table-bordered">
+                <thead>
+                    <tr>
+                        <th scope="col"> عنوان قسمت </th>
+                        <th scope="col"> رایگان   </th>
+                        <th scope="col">مدت زمان</th>
+                        <th scope="col">دستورات </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.EpisodeList)
+                    {
+                        <tr>
+                            <td>@item.EpisodeTitle</td>
+                            <td>@((item.IsFree) ? "رایگان" : "نقدی")</td>
+                            <td>@item.EpisodeTime</td>
+                            <td>
+                                <a href="/Admin/Episode/EditEpisode?episodeId=@item.EpisodeId" class="btn btn-primary">ویرایش قسمت</a>
+                                <a href="/Admin/Episode/DeleteEpisode?episodeId=@item.EpisodeId&courseId=@Model.Course.CourseId" class="btn btn-danger">حذف قسمت</a>
+                            </td>
+                        </tr>
+
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>

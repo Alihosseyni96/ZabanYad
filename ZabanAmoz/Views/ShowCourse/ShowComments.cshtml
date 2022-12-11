@@ -1,0 +1,62 @@
+﻿@using Core.Convertors
+@using Core.IServices
+@model List<ShowCommentsViewModel>
+
+@inject ICommentService _commentService;
+
+@foreach (var item in Model)
+{
+    <div class="review-box clearfix">
+        <figure class="rev-thumb">
+            <img src="/UserImg/@item.ImageName" alt="">
+        </figure>
+        <div class="rev-content">
+            <div class="rev-info">
+                @item.UserName - @item.CreateDate.ToShamsi()
+            </div>
+
+            <div class="rev-text" style="background-color:lightsteelblue">
+                <p>
+                    @item.CommentBody
+                </p>
+            </div>
+
+            @{
+                var commentReplies = _commentService.GetCommentReplies(item.CommentId);
+            }
+
+            <div>
+                <div>
+                    <p>   تاکنون @item.Reply  نفر پاسخ داده اند</p>
+                    @if (commentReplies != null)
+                    {
+                        <ul>
+                            @foreach (var reply in commentReplies)
+                            {
+                                <li><i class="icon-left-dir"></i> @reply.UserName-@reply.CreateDate.ToShamsi()  : <span> @reply.ReplyBody  </span></li>
+                            }
+                        </ul>
+                    }
+
+                </div>
+                @if (ViewBag.ReplyStatus==true)
+                {
+                    <div class="alert alert-success"> پاسخ شما با موفقیت ارسال شد و پس از تایید نمایش داده می شود</div>
+                }
+                <b>پاسخ</b>
+                <form action="/ShowCourse/CreateReply" method="post" name="myform">
+                    <input type="hidden" value="@item.CommentId" name="commentId">
+                    <input type="hidden" value="@item.CourseId" name="courseId">
+                    <input onkeyup="checkFormsValidity();" id="input_id" type="text" name="replyBody" value="" required  oninvalid="this.setCustomValidity('پاسخ را وارد کنید')" class="col-md-12 col-sm-12 col-lg-12" />
+                    <p></p>
+                    <input type="submit" id="submit" value="ثبت" class="btn btn-primary btn-sm">
+
+                </form>
+            </div>
+        </div>
+    </div>
+
+}
+
+
+

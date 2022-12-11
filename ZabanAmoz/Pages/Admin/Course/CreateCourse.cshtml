@@ -1,0 +1,183 @@
+﻿@page
+@using Core.Convertors.Core.Convertors
+@model ZabanAmoz.Pages.Admin.Course.CreateCourseModel
+@{
+}
+<ol class="breadcrumb">
+    <li class="breadcrumb-item">
+        <a href="#">پنل مدیریت</a>
+    </li>
+    <li class="breadcrumb-item active">  مدیریت دوره ها  </li>
+    <li class="breadcrumb-item active">  افزودن دوره جدید     </li>
+
+</ol>
+<div class="box_general padding_bottom">
+    <div class="header_box version_2">
+        <h2><i class="fa fa-file"></i>افزودن دوره جدید  </h2>
+    </div>
+    <form method="post" enctype="multipart/form-data">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label>عنوان دوره  </label>
+                    <input type="text" class="form-control" asp-for="CreateCourse.CourseTitle" placeholder="عنوان دوره  ">
+                    <span asp-validation-for="CreateCourse.CourseTitle" id="validation"></span>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label>توضیح مختصر   </label>
+                    <input type="text" class="form-control" asp-for="CreateCourse.ShortDescription" placeholder="نوضیح مختصر   ">
+                    <span asp-validation-for="CreateCourse.ShortDescription" id="validation"></span>
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label>توضیحات دوره  </label>
+                    <textarea rows=" 10" asp-for="CreateCourse.CourseText"></textarea>
+                    <span asp-validation-for="CreateCourse.CourseText" id="validation"></span>
+                </div>
+            </div>
+
+
+            <!--Section-->
+            <div id="filters_col" class="col-md-12">
+                <a data-toggle="collapse" href="#collapseFilters" aria-expanded="true" aria-controls="collapseFilters" id="filters_col_bt" class=""><pre> انتخاب گروه </pre>   </a>
+                <div class="collapse show" id="collapseFilters" style="">
+                    <div class="filter_type">
+                        <h6>گروه ه و زیر گروه ها </h6>
+                        <ul>
+                            @foreach (var MainGroup in Model.Groups.Where(g => g.ParentId == null))
+                            {
+                                <li>
+                                    <lable>  <input type="checkbox" value="@MainGroup.GroupId" name="groupId">@MainGroup.GroupTitle </lable>
+                                </li>
+                                @if (Model.Groups.Any(g => g.ParentId == MainGroup.GroupId))
+                                {
+                                    <ul style="margin-right:20px">
+                                        @foreach (var subGroup in Model.Groups.Where(g => g.ParentId == MainGroup.GroupId))
+                                        {
+                                            <li>
+                                                <lable>  <input type="checkbox" value="@subGroup.GroupId" name="groupId">@subGroup.GroupTitle </lable>
+                                            </li>
+                                        }
+                                    </ul>
+                                }
+
+                            }
+
+                        </ul>
+                    </div>
+                </div>
+                <!--/collapse -->
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>مدرس دوره:   </label>
+                    <select class="form-select form-select-lg mb-3" asp-for="CreateCourse.TeacherId" aria-label=".form-select-lg example">
+                        <option selected>   انتخاب کنید</option>
+                        @foreach (var teacher in Model.Teachers)
+                        {
+                            <option value="@teacher.TeacherId">@teacher.TeacherName</option>
+                        }
+                    </select>
+                    <span asp-validation-for="CreateCourse.TeacherId" id="validation"></span>
+
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>سطح دوره:   </label>
+                    <select class="form-select" asp-for="CreateCourse.CourseLevel" aria-label="  سطح دوره ">
+                        <option selected>   انتخاب کنید</option>
+                        @foreach (var level in Model.CourseLevels)
+                        {
+                            <option value="@level">@level.GetDisplayName()</option>
+                        }
+                    </select>
+                    <span asp-validation-for="CreateCourse.CourseLevel" id="validation"></span>
+
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>وضعیت دوره:   </label>
+                    <select class="form-select" asp-for="CreateCourse.CourseStatus" aria-label="  وضعیت دوره ">
+                        <option selected>   انتخاب کنید</option>
+                        @foreach (var level in Model.CourseStatuses)
+                        {
+                            <option value="@level">@level.GetDisplayName()</option>
+                        }
+                    </select>
+                    <span asp-validation-for="CreateCourse.CourseStatus" id="validation"></span>
+
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>قیمت دوره   </label>
+                    <input type="number" class="form-control" asp-for="CreateCourse.CoursePrice" placeholder="(صورت رایگان بودن 0 وارد شود)   ">
+                    <span asp-validation-for="CreateCourse.CoursePrice" id="validation"></span>
+                </div>
+            </div>
+
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label>  تصویر دوره  </label>
+                    <input type="file" class="form-control" asp-for="CreateCourse.CourseImage">
+                    <span id="Validation"></span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <img src="" class="img-thumbnail" style="max-width:150px" id="courseImg" />
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>  ویدیو پیش نمایش دوره   </label>
+                    <input type="file" class="form-control" asp-for="CreateCourse.CourseDemoFile">
+                    <span id="validation"></span>
+                </div>
+            </div>
+
+            <div>
+                <input type="submit" class="btn btn-success btn-lg" value="ثبت  " />
+            </div>
+        </div>
+    </form>
+</div>
+
+@section Scripts{
+    <script>
+
+        function readURL(input) {
+
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#courseImg').attr('src', e.target.result);
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        $("#CreateCourse_CourseImage").change(function () {
+            readURL(this);
+        });
+    </script>
+    <script src="https://cdn.ckeditor.com/4.9.2/standard/ckeditor.js"></script>
+    <script>
+
+        CKEDITOR.replace('CreateCourse_CourseText', {
+            customConfig: '/js/Config.js'
+        });
+
+    </script>
+
+    }

@@ -1,0 +1,65 @@
+﻿@model List<ShowPurchesedCoursesViewMode>
+
+<ol class="breadcrumb">
+    <li class="breadcrumb-item">
+        <a href="#">داشبورد</a>
+    </li>
+    <li class="breadcrumb-item active"> دوره های خریداری شده  </li>
+</ol>
+
+
+<div class="box_general padding_bottom">
+    <div class="header_box version_2">
+        <h2><i class="fa fa-user"></i>دوره های خریداری شده </h2>
+    </div>
+
+    <div class=" col-md-8" style="margin-right:150px">
+
+        <table class="table table-striped cart-list">
+            <thead>
+                <tr>
+                    <th>
+                        تصویر دوره 
+                    </th>
+
+                    <th>
+                        نام دوره
+                    </th>
+                    <th>
+                        مدرس دوره
+                    </th>
+                    <th>
+                        تاریخ آخرین به روز رسانی
+                    </th>
+                    <th>
+
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            <img src="/CourseImage/FingerImg/@item.CourseImageName" style="width:100px" alt="Image">
+                        </td>
+                        <td>
+                            <span class="item_cart">@item.CourseName  </span>
+                        </td>
+                        <td>
+                            @item.TeacherName
+                        </td>
+                        <td>
+                            @item.UpdateDate?.ToShamsi()
+                        </td>
+                        <td>
+                            <a href="/ShowCourse/Index?courseId=@item.CourseId" class="btn btn-primary">برو به صفحه دوره</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+
+    </div>
+</div>

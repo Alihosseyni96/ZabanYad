@@ -1,0 +1,130 @@
+﻿@page
+@model ZabanAmoz.Pages.Admin.Course.IndexModel
+@{
+}
+<div id="mainElement">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="#">پنل مدیریت</a>
+        </li>
+        <li class="breadcrumb-item active">  مدیریت  دوره ها </li>
+    </ol>
+
+
+    <div class="box_general padding_bottom">
+        <div class="header_box version_2">
+            <h2><i class="fa fa-user"></i>مدیریت دوره ها  </h2>
+        </div>
+        <div>
+            <form class="d-flex" method="post">
+                <input type="hidden" value="@Model.ShowCourse.Item3" asp-for="PageId" />
+                <button class="btn btn-primary me-1" type="submit">جستجو</button>
+                <input class="form-control col-md-3" asp-for="SearchBox" type="search" placeholder="جستجو بر اساس(عنوان-مدرس-گروه)" aria-label="Search">
+            </form>
+
+
+            <br />
+            <hr />
+            <a href="/Admin/Course/CreateCourse" class="btn btn-secondary"> افزودن دوره جدید </a>
+
+        </div>
+
+        <br />
+        <br />
+        <div class="table-responsive">
+            <table class="table  table-bordered">
+                <thead>
+                    <tr>
+                        <th scope="col"> تصویر </th>
+                        <th scope="col">عنوان دوره   </th>
+                        <th scope="col">گروه ها   </th>
+                        <th scope="col">مدرس دوره</th>
+                        <th scope="col">تاریخ ایجاد دوره </th>
+                        <th scope="col">تاریخ اخرین به روز رسانی   </th>
+                        <th scope="col">وضعیت دوره </th>
+                        <th scope="col">سطح دوره  </th>
+                        <th scope="col">قیمت دوره  </th>
+                        <th scope="col">قسمت های دوره   </th>
+                        <th scope="col">بازدید های دوره   </th>
+                        <th scope="col"> تعداد فروش ها   </th>
+                        <th scope="col"> دستورات     </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.ShowCourse.Item1)
+                    {
+                        <tr class="alert alert-@((item.IsDelete)?"warning":"")">
+                            <td><img src="/CourseImage/FingerImg/@item.ImageName" class="" /></td>
+                            <td>@item.Coursetitle</td>
+                            <td>
+                                <ul>
+                                    @foreach (var group in item.CourseGroups)
+                                    {
+                                        <li>@group</li>
+                                    }
+                                </ul>
+                            </td>
+                            <td>@item.TeacherName</td>
+                            <td>@item.CreateDate.ToShamsi()</td>
+                            <td>@item.UpdateDate?.ToShamsi()</td>
+                            <td>@item.CourseStatus.GetDisplayName()</td>
+                            <td>@item.CourseLevel.GetDisplayName()</td>
+                            <td>@((item.CoursePrice == 0) ? "رایگان" : item.CoursePrice.ToString("#,0")) تومان</td>
+                            <td>@item.EpisodeCount</td>
+                            <td>@item.Visit</td>
+                            <td>--</td>
+                            <td>
+                                @if (item.IsDelete)
+                                {
+                                    <a href="/Admin/course/ReturnCourse?CourseId=@item.CourseId&pageId=@Model.ShowCourse.Item3&searchBox=@ViewData["SearchBox"]" class="btn btn-success">بازگرداندن</a>
+                                }
+                                else
+                                {
+                                    <a href="/Admin/course/DeleteCourse?CourseId=@item.CourseId&pageId=@Model.ShowCourse.Item3&searchBox=@ViewData["SearchBox"]" class="btn btn-danger">حذف</a>
+
+                                }
+                                <a href="/Admin/Course/EditCourse?courseId=@item.CourseId" class="btn btn-primary">ویرایش</a>
+                                <a href="/Admin/Episode/Index?courseId=@item.CourseId" class="btn btn-primary">قسمت ها</a>
+                            </td>
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+    <!--Page Ination  with search Filter-->
+
+    <ul class="pagination pagination-sm add_bottom_30">
+
+        @if (Model.ShowCourse.Item3 > 1)
+        {
+            <li class="page-item ">
+                <a class="page-link" href="/Admin/Course/Index?pageId=1)">اولین</a>
+            </li>
+            <li class="page-item ">
+                <a class="page-link" href="/Admin/Course/Index?pageId=@(Model.ShowCourse.Item3 - 1)&searchBox=@ViewData["SearchBox"]">قبلی</a>
+            </li>
+        }
+        @if (Model.ShowCourse.Item2 > 1)
+        {
+            @for (int i = (Model.ShowCourse.Item3 - 2 > 0) ? i = Model.ShowCourse.Item3 - 2 : i = 1; (Model.ShowCourse.Item3 + 2 > Model.ShowCourse.Item2) ? i <= Model.ShowCourse.Item2 : i < Model.ShowCourse.Item3 + 2; i++)
+            {
+                <li class="page-item @((Model.ShowCourse.Item3==i)?"active":"") "><a class="page-link " href="/Admin/Course/Index?pageId=@i&searchBox=@ViewData["SearchBox"]">@i</a></li>
+            }
+
+        }
+        @if (Model.ShowCourse.Item3 < Model.ShowCourse.Item2)
+        {
+            <li class="page-item ">
+                <a class="page-link" href="/Admin/Course/Index?pageId=@(Model.ShowCourse.Item3 + 1)&searchBox=@ViewData["SearchBox"]">بعدی</a>
+            </li>
+
+            <li class="page-item ">
+                <a class="page-link" href="/Admin/Course/Index?pageId=@Model.ShowCourse.Item2&searchBox=@ViewData["SearchBox"]">آخرین</a>
+            </li>
+        }
+    </ul>
+    <!--Page Ination  without search Filter-->

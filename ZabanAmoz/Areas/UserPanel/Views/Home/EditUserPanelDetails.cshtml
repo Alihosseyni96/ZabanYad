@@ -1,0 +1,109 @@
+﻿@model UserPanelEditViewModel
+<ol class="breadcrumb">
+    <li class="breadcrumb-item">
+        <a href="#">داشبورد</a>
+    </li>
+    <li class="breadcrumb-item active">ویرایش اطلاعات کاربری</li>
+</ol>
+
+
+
+<div class="box_general padding_bottom">
+    <div class="header_box version_2">
+        <h2><i class="fa fa-user"></i>ویرایش اطلاعات کاربری </h2>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <label>تصویر شما</label>
+                <img src="/UserImg/@Model.ImageName" id="userImg" style="max-width:230px" class="rounded-circle" />
+            </div>
+
+        </div>
+        <form action="/UserPanel/Home/EditUserPanelDetails" method="post" enctype="multipart/form-data">
+            <input type="hidden" asp-for="UserId" />
+            <input type="hidden" asp-for="ImageName" />
+            <div class="col-md-8 add_top_30">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>نام کاربری</label>
+                            <input type="text" class="form-control" asp-for="UserName" >
+                            <span asp-validation-for="UserName" id="validation"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label> ایمیل</label>
+                            <input type="text" class="form-control" asp-for="Email" >
+                            <span asp-validation-for="Email" id="validation"></span>
+
+                        </div>
+                    </div>
+                </div>
+                <!-- /row-->
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>شماره تلفن همراه</label>
+                            <input type="text" class="form-control" asp-for="PhoneNumber" placeholder="">
+                            <span asp-validation-for="PhoneNumber" id="validation"></span>
+
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>کلمه عبور</label>
+                            <input type="password" asp-for="Password" class="form-control" placeholder="در صورت تمایل کلمه ورود جدید را وارد کنید">
+                            <span asp-validation-for="Password" id="validation"></span>
+
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>تکرار کلمه عبور</label>
+                            <input type="password" asp-for="Repassword" class="form-control" >
+                            <span asp-validation-for="Repassword" id="validation"></span>
+
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>انتخاب تصویر</label>
+                            <input type="file" class="form-control" asp-for="NewUserImage"  >
+                            <span asp-validation-for="NewUserImage" id="validation"></span>
+
+                        </div>
+                    </div>
+                    <div class="alert alert-warning"> در صورت ویرایش اطلاعات کاربری جهت به روز رسانی سیستم مجددا باید وارد حساب خود شوید</div>
+                    <input type="submit" class="btn btn-block btn-success"  value="اعمال تغییرات" />
+
+
+                </div>
+            </div>
+        </form>
+
+
+    </div>
+</div>
+@section Scripts{
+    <script>
+
+        function readURL(input) {
+
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#userImg').attr('src', e.target.result);
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        $("#NewUserImage").change(function () {
+            readURL(this);
+        });
+    </script>
+    }

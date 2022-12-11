@@ -1,0 +1,19 @@
+﻿
+<h1 class="wizard-header" style="margin:20px">فعالسازی حساب کاربری  </h1>
+
+@if (ViewBag.ActiveResult==null)
+{
+    <div class="alert alert-success">
+        <p><strong> کاربر گرامی حساب شما با موفقیت فعال شد جهت ورود به سایت <a href="/Account/Login"> کلیک</a> کنید</strong></p>
+    </div>
+
+}
+else
+{
+    <div class="alert alert-warning">
+        <p><strong>  کاربر گرامی در فعالسازی حساب شما خطایی رخ داده است لطفا مجددا روی لینک فعالسازی کلیک نمایید    </strong></p>
+    </div>
+
+}
+
+

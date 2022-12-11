@@ -1,0 +1,66 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32929.385
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DataLayer", "DataLayer", "{0C22D42A-C76F-4E24-AFD8-C7EC4CCAE9B2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DomainLayer", "DomainLayer", "{82DC7F39-28C7-4353-9736-639755180ECC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CoreLayer", "CoreLayer", "{A4819963-7A9D-4815-B638-EDE1BC4D7D4A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PresentationLayer", "PresentationLayer", "{8619FBD7-D40E-4135-8FE2-8B36DCEEFB87}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Ioc", "Ioc", "{9DDE7B28-C3E3-40BF-889E-CF287E4A0A3A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core", "Core\Core.csproj", "{8ED8BCB6-933C-44EB-A02E-E381821CC755}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Data", "Data\Data.csproj", "{817C1229-6CEF-47BD-9882-BA4CBD06096A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "Domain\Domain.csproj", "{3750AC53-2874-40B4-A118-56159E298E0A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ioc", "Ioc\Ioc.csproj", "{668268BA-865F-4967-954E-6B04C30906FA}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ZabanAmoz", "ZabanAmoz\ZabanAmoz.csproj", "{04ED90DF-277C-4F12-AABC-45959E228720}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8ED8BCB6-933C-44EB-A02E-E381821CC755}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8ED8BCB6-933C-44EB-A02E-E381821CC755}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8ED8BCB6-933C-44EB-A02E-E381821CC755}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8ED8BCB6-933C-44EB-A02E-E381821CC755}.Release|Any CPU.Build.0 = Release|Any CPU
+		{817C1229-6CEF-47BD-9882-BA4CBD06096A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{817C1229-6CEF-47BD-9882-BA4CBD06096A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{817C1229-6CEF-47BD-9882-BA4CBD06096A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{817C1229-6CEF-47BD-9882-BA4CBD06096A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3750AC53-2874-40B4-A118-56159E298E0A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3750AC53-2874-40B4-A118-56159E298E0A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3750AC53-2874-40B4-A118-56159E298E0A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3750AC53-2874-40B4-A118-56159E298E0A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{668268BA-865F-4967-954E-6B04C30906FA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{668268BA-865F-4967-954E-6B04C30906FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{668268BA-865F-4967-954E-6B04C30906FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{668268BA-865F-4967-954E-6B04C30906FA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{04ED90DF-277C-4F12-AABC-45959E228720}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{04ED90DF-277C-4F12-AABC-45959E228720}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{04ED90DF-277C-4F12-AABC-45959E228720}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{04ED90DF-277C-4F12-AABC-45959E228720}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{8ED8BCB6-933C-44EB-A02E-E381821CC755} = {A4819963-7A9D-4815-B638-EDE1BC4D7D4A}
+		{817C1229-6CEF-47BD-9882-BA4CBD06096A} = {0C22D42A-C76F-4E24-AFD8-C7EC4CCAE9B2}
+		{3750AC53-2874-40B4-A118-56159E298E0A} = {82DC7F39-28C7-4353-9736-639755180ECC}
+		{668268BA-865F-4967-954E-6B04C30906FA} = {9DDE7B28-C3E3-40BF-889E-CF287E4A0A3A}
+		{04ED90DF-277C-4F12-AABC-45959E228720} = {8619FBD7-D40E-4135-8FE2-8B36DCEEFB87}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {91C134AA-6EB9-48B1-8742-B556C3BF14F4}
+	EndGlobalSection
+EndGlobal

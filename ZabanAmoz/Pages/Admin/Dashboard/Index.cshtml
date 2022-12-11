@@ -1,0 +1,127 @@
+﻿@page
+@model ZabanAmoz.Pages.Admin.Dashboard.IndexModel
+@{
+}
+<!-- Bootstrap core CSS-->
+<link href="~/css/newadmin/css/adminlte.min.css" rel="stylesheet" />
+<link href="~/css/newadmin/css/bootstrap-rtl.min.css" rel="stylesheet" />
+<link href="~/css/newadmin/css/custom-style.css" rel="stylesheet" />
+<div class="container-fluid">
+    <!-- Breadcrumbs-->
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="#">پنل مدیریت</a>
+        </li>
+        <li class="breadcrumb-item active">اطلاعات کلی </li>
+    </ol>
+    <!-- Icon Cards-->
+    <div class="row">
+        <div class="col-xl-3 col-sm-6 mb-3">
+            <div class="card dashboard text-white bg-primary o-hidden h-100">
+                <div class="card-body">
+                    <div class="card-body-icon">
+                        <i class="fa fa-fw fa-envelope-open"></i>
+                    </div>
+                    <div class="mr-5"><h5> @($"پیام ها:{Model.DashboardInfo.Comments}({Model.DashboardInfo.NotShownComment})") </h5></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-sm-6 mb-3">
+            <div class="card dashboard text-white bg-warning o-hidden h-100">
+                <div class="card-body">
+                    <div class="card-body-icon">
+                        <i class="fa fa-fw fa-star"></i>
+                    </div>
+                    <div class="mr-5"><h5> تعداد دوره ها:@Model.DashboardInfo.CourseCount <h5></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-sm-6 mb-3">
+            <div class="card dashboard text-white bg-success o-hidden h-100">
+                <div class="card-body">
+                    <div class="card-body-icon">
+                        <i class="fa fa-fw fa-calendar-check-o"></i>
+                    </div>
+                    <div class="mr-5"><h5> تعداد کاربران:@Model.DashboardInfo.UserCount </h5></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-sm-6 mb-3">
+            <div class="card dashboard text-white bg-danger o-hidden h-100">
+                <div class="card-body">
+                    <div class="card-body-icon">
+                        <i class="fa fa-fw fa-heart"></i>
+                    </div>
+                    <div class="mr-5"><h5> تعداد کل بازدید ها:@Model.DashboardInfo.CoursesVisit </h5></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /cards -->
+    <h2></h2>
+    <div class="box_general padding_bottom">
+        <div class="chartjs-size-monitor" style="position: absolute; inset: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;"><div class="chartjs-size-monitor-expand" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div></div><div class="chartjs-size-monitor-shrink" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:200%;height:200%;left:0; top:0"></div></div></div>
+        <div class="header_box version_2">
+            <h2><i class="fa fa-bar-chart"></i>آمار ما</h2>
+        </div>
+        <!--New Section -->
+        <div class="col-md-8">
+            <p class="text-center">
+                <strong>  راندمان بر اساس تمام فعالیت های صورت گرفته توسط کاربران در سایت می باشد   </strong>
+            </p>
+            <form class="d-flex">
+                <button class="btn btn-primary me-1" type="submit">جستجو</button>
+                <input type="text" name="limitRate" class="form-control col-md-3" placeholder="بر اساس 20 فعالیت می باشد" />
+            </form>
+
+
+
+
+            @foreach (var item in Model.SiteRate)
+            {
+                string colorStatus = "primary";
+                if (item.Rate < 25)
+                {
+                    colorStatus = "danger";
+                }
+                if (item.Rate > 75)
+                {
+                    colorStatus = "success";
+                }
+
+                <div class="progress-group">
+                    @item.CreateDate.ToShamsi()
+                    <span class="float-left">@(item.Rate)%</span>
+                    <div class="progress progress-sm">
+                        <div class="progress-bar bg-@colorStatus" style="width: @item.Rate%"></div>
+                    </div>
+                </div>
+
+            }
+
+            <!-- /.progress-group -->
+
+        </div>
+    </div>
+</div>
+@section Scripts{
+    <script src="~/css/newadmin/jquery/jquery.min.js"></script>
+    <script src="~/css/newadmin/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="~/css/newadmin/sparkline/jquery.sparkline.min.js"></script>
+    <script src="~/css/newadmin/jvectormap/jquery-jvectormap-1.2.2.min.js"></script>
+    <script src="~/css/newadmin/jvectormap/jquery-jvectormap-world-mill-en.js"></script>
+    <script src="~/css/newadmin/slimscroll/jquery.slimscroll.min.js"></script>
+    <script src="~/css/newadmin/chartjs-old/chart.min.js"></script>
+    <script src="~/css/newadmin/js/adminlte.js"></script>
+    <script src="~/css/newadmin/js/demo.js"></script>
+    <script src="~/css/newadmin/js/pages/dashboard2.js"></script>
+
+
+    <script>
+        setInterval(function () {
+            $('#click2').trigger('click');
+            setTimeout(function () {
+
+            }, 500)
+        }, 1000 /* in milliseconds */);</script>
+}

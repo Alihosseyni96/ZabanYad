@@ -1,0 +1,78 @@
+﻿@page
+@model ZabanAmoz.Pages.Admin.CourseGroup.CreateGroupModel
+@{
+}
+
+<ol class="breadcrumb">
+    <li class="breadcrumb-item">
+        <a href="#">پنل مدیریت</a>
+    </li>
+    <li class="breadcrumb-item active">  مدیریت گروه ها </li>
+    <li class="breadcrumb-item active">  افزودن گروه جدید   </li>
+
+</ol>
+<div class="box_general padding_bottom">
+    <div class="header_box version_2">
+        <h2><i class="fa fa-file"></i>افزودن گروه جدید </h2>
+    </div>
+    <form method="post" enctype="multipart/form-data">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>عنوان گروه</label>
+                    <input type="text" class="form-control" asp-for="CreateCourseGroup.GroupTitle" placeholder="عنوان گروه">
+                    <span asp-validation-for="CreateCourseGroup.GroupTitle" id="validation"></span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>زیر گروه ها </label>
+                    <input type="text" class="form-control" asp-for="CreateCourseGroup.SubGroupsTitle" placeholder="زیر گروه ها(زیر گروه ها را با - از  یکدیگر جدا کنید) ">
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label>  تصویر گروه اصلی  </label>
+                    <input type="file" class="form-control" asp-for="CreateCourseGroup.MainGroupImage">
+                    <span id="validation" asp-validation-for="CreateCourseGroup.MainGroupImage"></span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <img src="" class="img-thumbnail" style="max-width:150px" id="mainGroupImg" />
+                </div>
+            </div>
+            <di class="col-md-4"></di>
+
+            <div>
+                <input type="submit" class="btn btn-success btn-sm" value="ثبت گروه " />
+            </div>
+        </div>
+    </form>
+</div>
+
+
+@section Scripts{
+    <script>
+
+        function readURL(input) {
+
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#mainGroupImg').attr('src', e.target.result);
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+        $("#CreateCourseGroup_MainGroupImage").change(function () {
+            readURL(this);
+        });
+
+    </script>
+
+    }
+
+

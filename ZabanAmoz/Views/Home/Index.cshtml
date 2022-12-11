@@ -1,0 +1,156 @@
+﻿@model ShowItemsForIndexPage
+
+@section Header{
+    <h3>به دنبال آموزش چه زبانی هستید؟</h3>
+    <p>با یک جست و جوی ساده بهترین آموزش ها در دستان شماست</p>
+    <form action="/CourseList/Index" method="get">
+        <div id="custom-search-input">
+            <div class="input-group">
+                <input type="text" name="searchKey" class=" search-query" placeholder="انگلیسی , فرانسوی , ..." />
+                <input type="submit" class="btn_search" value="جستجو">
+            </div>
+        </div>
+    </form>
+
+}
+
+    <div class="features clearfix">
+        <div class="container">
+            <ul>
+                <li>
+                    <i class="pe-7s-study"></i>
+                    <h4>+50 دوره</h4><span> دوره های مناسب و کاربردی </span>
+                </li>
+                <li>
+                    <i class="pe-7s-cup"></i>
+                    <h4>اساتید مجرب </h4><span>  افزایش سرعت یادگیری با بابهترین اساتید  </span>
+                </li>
+                <li>
+                    <i class="pe-7s-target"></i>
+                    <h4>تمرکز بر روی هدف</h4><span> محیط مناسب جهت رشد و مشارک با دوستان  </span>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!-- /features -->
+
+    <div class="container-fluid margin_120_0">
+        <div class="main_title_2">
+            <span><em></em></span>
+            <h2>دوره های محبوب ما</h2>
+        </div>
+        <div id="reccomended" class="owl-carousel owl-theme">
+        @foreach (var item in Model.PopularCourses)
+        {
+            <div class="item">
+                <div class="box_grid">
+                    <figure>
+                        <label>
+                            @item.CourseRate.LikeCount
+                        <a href="/Home/LikeCourse?courseId=@item.CourseId" class="  @((item.IsLike)?"icon-heart-filled":"icon-heart-2") float-left   @((User.Identity.IsAuthenticated)?"":"btn disabled")  "></a>
+                        </label>
+                        <a href="/ShowCourse/Index?courseId=@item.CourseId">
+                            <div class="preview"><span> </span></div><img src="/CourseImage/FingerImg/@item.ImageName" class="img-fluid" alt="">
+                        </a>
+                        <div class="price">@((item.Price == 0) ? "رایگان" : $"{item.Price.ToString("#,0")}تومان")</div>
+
+                    </figure>
+                    <div class="wrapper">
+                        <small>دسته بندی</small>
+                        <h3>  @item.title </h3>
+                        <p>@item.Description </p>
+                        <div class="rating"><i class="icon_star @((item.CourseRate.AverageCourseRate > 0)?"voted":"")"></i><i class="icon_star @((item.CourseRate.AverageCourseRate > 1)?"voted":"")"></i><i class="icon_star @((item.CourseRate.AverageCourseRate > 2)?"voted":"")"></i><i class="icon_star @((item.CourseRate.AverageCourseRate > 3)?"voted":"")"></i><i class="icon_star @((item.CourseRate.AverageCourseRate > 4)?"voted":"")"></i> <small>(تعداد مشارکت:@item.CourseRate.RateNumbers)</small></div>
+
+                    </div>
+                    <ul>
+                        <li><i class="icon_clock_alt"></i> @item.TotalTime </li>
+                        <li><i class="icon-eye"></i> @item.Visit</li>
+                        <li><a href="/ShowCourse/Index?courseId=@item.CourseId">مشاهده جزئیات </a></li>
+                    </ul>
+                </div>
+            </div>
+        }
+        <!-- /item -->
+    </div>
+    <!-- /carousel -->
+    <div class="container">
+        <p class="btn_home_align"><a href="/CourseList/Index" class="btn_1 rounded">مشاهده همه دوره ها</a></p>
+    </div>
+    <!-- /container -->
+    <hr>
+</div>
+<!-- /container -->
+
+<div class="container margin_30_95">
+    <div class="main_title_2">
+        <span><em></em></span>
+        <h2>دسته بندی ها </h2>
+    </div>
+    <div class="row">
+        @foreach (var item in Model.MainGroups)
+        {
+            <div class="col-lg-4 col-md-6 wow" data-wow-offset="150">
+                <a href="/CourseList/Index?groupIds=@item.MainGroupId" class="grid_item">
+                    <figure class="block-reveal">
+                        <div class="block-horizzontal"></div>
+                        <img src="/MainGroupImg/orginalImage/@item.ImageName" class="img-fluid" alt="">
+                        <div class="info">
+                            <small><i class="ti-layers"></i>  @item.CourseCount دوره </small>
+                            <h3> @item.MainGtoupTitle  </h3>
+                        </div>
+                    </figure>
+                </a>
+            </div>
+        }
+        <!-- /grid_item -->
+    </div>
+    <!-- /row -->
+</div>
+<!-- /container -->
+<div class="container margin_30_95">
+    <div class="main_title_2">
+        <span><em></em></span>
+        <h2> معرفی اساتید  </h2>
+    </div>
+    <div class="row">
+        @foreach (var item in Model.Teachers)
+        {
+            <div class="col-md-4 ">
+                <div class="box_grid">
+                    <figure>
+                        <a href="">
+                            <div class="preview"><span> </span></div><img src="/UserImg/@item.Image" class="img-fluid" alt="">
+                        </a>
+
+                    </figure>
+                    <div>
+                        <ul>
+                            <li><i class="icon-left-dir"></i> نام کاربری  : <span> @item.TeacherName  </span></li>
+                            <li><i class="icon-left-dir"></i> شماره تماس  : <span> @item.PhoneNumber  </span></li>
+                            <li><i class="icon-left-dir"></i>      ایمیل  : <span> @item.Email.ToLower()  </span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        }
+        <!-- /grid_item -->
+    </div>
+    <!-- /row -->
+</div>
+
+<!-- /bg_color_1 -->
+
+<div class="call_section">
+    <div class="container clearfix">
+        <div class="col-lg-5 col-md-6 float-right wow" data-wow-offset="250">
+            <div class="block-reveal">
+                <div class="block-vertical"></div>
+                <div class="box_1">
+                    <h3>لذت یادگیری آسان</h3>
+                    <p> با زبان یاد لذت یادگیری آسان را به همراه بهترین و باتجربه ترین استاد به خود هدیه کنید </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,135 @@
+﻿@page
+@using Core.IServices
+@model ZabanAmoz.Pages.Admin.User.IndexModel
+@inject IPermissionService _permissionService;
+@{
+    bool IsAdmin = _permissionService.IsAdmin();
+}
+
+<div id="mainElement">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="#">پنل مدیریت</a>
+        </li>
+        <li class="breadcrumb-item active">  مدیریت  کاربران </li>
+    </ol>
+
+
+    <div class="box_general padding_bottom">
+        <div class="header_box version_2">
+            <h2><i class="fa fa-user"></i>مدیریت کابران  </h2>
+        </div>
+        <div>
+            <form class="d-flex" method="post">
+                <input type="hidden" value="@Model.UsersForAdmin.Item3" asp-for="PageId" />
+                <button class="btn btn-primary me-1" type="submit">جستجو</button>
+                <input class="form-control col-md-3" asp-for="SearchBox" type="search" placeholder="عبارت را وارد کنید" aria-label="Search">
+            </form>
+
+
+            <br />
+           <hr />
+            <a href="/Admin/User/CreateUser" class="btn btn-secondary @((IsAdmin)?"":"btn disabled") "> افزودن کاربر جدید</a>
+
+        </div>
+
+        <br />
+        <br />
+        <div class="table-responsive">
+            <table class="table  table-bordered">
+                <thead>
+                    <tr>
+                        <th scope="col"> تصویر </th>
+                        <th scope="col">نام کاربری  </th>
+                        <th scope="col">ایمیل</th>
+                        <th scope="col">شماره همراه</th>
+                        <th scope="col">دسترسی  </th>
+                        <th scope="col">فعال شده</th>
+                        <th scope="col">تاریخ ثبت نام</th>
+                        <th scope="col">موجودی کیف پول</th>
+                        <th scope="col">حذف شده  </th>
+                        <th scope="col"> عملیات ها  </th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var user in Model.UsersForAdmin.Item1)
+                    {
+                        <tr class="alert alert-@((user.IsDelete || !user.IsActive)?"warning":"")">
+                            <td scope="col"><img src="/UserImg/@user.UserImageName" class="img-thumbnail" style="max-width:50px"> </td>
+                            <td scope="col">@user.UserName </td>
+                            <td scope="col"> @user.Email </td>
+                            <td scope="col">@user.PhoneNumber </td>
+                            <td scope="col">
+                                @if (user.RolesName != null)
+                                {
+                                    <ul>
+                                        @foreach (var role in user.RolesName)
+                                        {
+                                            <li>@role</li>
+                                        }
+                                    </ul>
+                                }
+
+
+
+                            </td>
+                            <td scope="col"> @((user.IsActive) ? "فعال" : "غیرفعال")</td>
+                            <td scope="col"> @user.RegisterDate.ToShamsi() </td>
+                            <td scope="col">@user.WalletReminded.ToString("#,0") </td>
+                            <td scope="col">@((user.IsDelete) ? "حذف شده" : "  ") </td>
+                            <td scope="col">
+                                @if (user.IsDelete)
+                                {
+                                    <a href="/Admin/User/ReturnUser?userId=@user.UserId&pageId=@Model.UsersForAdmin.Item3&searchBox=@ViewData["SearchBox"]" class="btn btn-success">بازگرداندن</a>
+                                }
+                                else
+                                {
+                                    <a href="/Admin/User/DeleteUser?userId=@user.UserId&pageId=@Model.UsersForAdmin.Item3&searchBox=@ViewData["SearchBox"]" class="btn btn-danger">حذف</a>
+
+                                }
+                                <a href="/Admin/User/EditUser?userId=@user.UserId" class="btn btn-primary @((IsAdmin)?"":"btn disabled")">ویرایش</a>
+                            </td>
+                        </tr>
+
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!--Page Ination  with search Filter-->
+
+    <ul class="pagination pagination-sm add_bottom_30">
+
+        @if (Model.UsersForAdmin.Item3 > 1)
+        {
+            <li class="page-item ">
+                <a class="page-link" href="/Admin/User/Index?pageId=1)">اولین</a>
+            </li>
+            <li class="page-item ">
+                <a class="page-link" href="/Admin/User/Index?pageId=@(Model.UsersForAdmin.Item3 - 1)&searchBox=@ViewData["SearchBox"]">قبلی</a>
+            </li>
+        }
+        @if (Model.UsersForAdmin.Item2 > 1)
+        {
+            @for (int i = (Model.UsersForAdmin.Item3 - 2 > 0) ? i = Model.UsersForAdmin.Item3 - 2 : i = 1; (Model.UsersForAdmin.Item3 + 2 > Model.UsersForAdmin.Item2) ? i <= Model.UsersForAdmin.Item2 : i < Model.UsersForAdmin.Item3 + 2; i++)
+            {
+                <li class="page-item @((Model.UsersForAdmin.Item3==i)?"active":"") "><a class="page-link " href="/Admin/User/Index?pageId=@i&searchBox=@ViewData["SearchBox"]">@i</a></li>
+            }
+
+        }
+        @if (Model.UsersForAdmin.Item3 < Model.UsersForAdmin.Item2)
+        {
+            <li class="page-item ">
+                <a class="page-link" href="/Admin/User/Index?pageId=@(Model.UsersForAdmin.Item3 + 1)&searchBox=@ViewData["SearchBox"]">بعدی</a>
+            </li>
+
+            <li class="page-item ">
+                <a class="page-link" href="/Admin/User/Index?pageId=@Model.UsersForAdmin.Item2&searchBox=@ViewData["SearchBox"]">آخرین</a>
+            </li>
+        }
+    </ul>
+    <!--Page Ination  without search Filter-->
+
+</div>

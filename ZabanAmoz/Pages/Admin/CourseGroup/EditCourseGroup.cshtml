@@ -1,0 +1,80 @@
+﻿@page
+@model ZabanAmoz.Pages.Admin.CourseGroup.EditCourseGroupModel
+@{
+}
+<ol class="breadcrumb">
+    <li class="breadcrumb-item">
+        <a href="#">پنل مدیریت</a>
+    </li>
+    <li class="breadcrumb-item active">  مدیریت گروه ها </li>
+    <li class="breadcrumb-item active">  ویرایش گروه      </li>
+
+</ol>
+<div class="box_general padding_bottom">
+    <div class="header_box version_2">
+        <h2><i class="fa fa-file"></i> ویرایش گروه @Model.EditCourseGroup.GroupTitle    </h2>
+    </div>
+    <form method="post" enctype="multipart/form-data">
+        <input type="hidden" asp-for="EditCourseGroup.MainGroupId" />
+        <input type="hidden" asp-for="EditCourseGroup.previousImageName" />
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>عنوان گروه</label>
+                    <input type="text" class="form-control" asp-for="EditCourseGroup.GroupTitle" placeholder="عنوان گروه">
+                    <span asp-validation-for="EditCourseGroup.GroupTitle" id="validation"></span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>زیر گروه ها </label>
+                    <input type="text" class="form-control" asp-for="EditCourseGroup.SubGroupsTitle" placeholder="زیر گروه ها(زیر گروه ها را با - از  یکدیگر جدا کنید) ">
+                </div>
+            </div>
+
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label>  تصویر گروه اصلی  </label>
+                    <input type="file" class="form-control" asp-for="EditCourseGroup.NewMainGroupImage">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <img src="" class="img-thumbnail" style="max-width:150px" id="mainGroupImg" />
+                </div>
+            </div>
+            <di class="col-md-4"></di>
+
+            <div class="alert alert-warning"> درصورت تغییر در زیر گروه ها, زیرگروه های دوره هایی که شامل آن می باشند پاک خواهند شد</div>
+            
+            <di class="col-md-12"></di>
+
+            <div>
+                <input type="submit" class="btn btn-success btn-sm" value="ثبت گروه " />
+            </div>
+        </div>
+    </form>
+</div>
+@section Scripts{
+    <script>
+
+        function readURL(input) {
+
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#mainGroupImg').attr('src', e.target.result);
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+        $("#EditCourseGroup_NewMainGroupImage").change(function () {
+            readURL(this);
+        });
+
+    </script>
+
+    }
+

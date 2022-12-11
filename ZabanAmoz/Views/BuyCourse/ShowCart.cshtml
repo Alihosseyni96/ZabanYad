@@ -1,0 +1,169 @@
+﻿@using Core.IServices
+@model Tuple<List<ShowCartDetailsViewMode>,int>
+@inject IUserPanelService _userPanelService;
+
+@{
+    int wallet = _userPanelService.BalanceWallet();
+}
+
+@section Header{
+    <h3>مراحل خرید شما</h3>
+    <div class="container">
+        <div class="bs-wizard clearfix">
+            <div class="bs-wizard-step active">
+                <div class="text-center bs-wizard-stepnum">سبد خرید</div>
+                <div class="progress">
+                    <div class="progress-bar"></div>
+                </div>
+                <a href="#0" class="bs-wizard-dot"></a>
+            </div>
+
+            <div class="bs-wizard-step disabled">
+                <div class="text-center bs-wizard-stepnum">پرداخت</div>
+                <div class="progress">
+                    <div class="progress-bar"></div>
+                </div>
+                <a href="#0" class="bs-wizard-dot"></a>
+            </div>
+
+            <div class="bs-wizard-step disabled">
+                <div class="text-center bs-wizard-stepnum">پایان!</div>
+                <div class="progress">
+                    <div class="progress-bar"></div>
+                </div>
+                <a href="#0" class="bs-wizard-dot"></a>
+            </div>
+        </div>
+        <!-- End bs-wizard -->
+    </div>
+}
+
+
+<div class="container margin_60_35" style="transform: none;">
+    <div class="row" style="transform: none;">
+        <div class="col-lg-8">
+            <div class="box_cart">
+                <h3>سبد خرید شما</h3>
+                <hr />
+                @if (Model == null || Model.Item1.Count()==0)
+                {
+                    <div class="alert alert-warning"> دوره ای در سبد خرید شما موجود نمی باشد </div>
+                }
+                else
+                {
+                    <table class="table table-striped cart-list">
+                        <thead>
+                            <tr>
+                                <th>
+                                    نام دوره
+                                </th>
+                                <th>
+                                    تخفیف
+                                </th>
+                                <th>
+                                    قیمت واحد
+                                </th>
+                                <th>
+                                    تعداد
+                                </th>
+                                <th>
+                                    اقدام
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.Item1)
+                            {
+                                <tr>
+                                    <td>
+                                        <div class="thumb_cart">
+                                            <img src="/CourseImage/FingerImg/@item.CourseImageName" alt="Image">
+                                        </div>
+                                        <span class="item_cart">@item.CourseName  </span>
+                                    </td>
+                                    <td>
+                                        0%
+                                    </td>
+                                    <td>
+                                        <strong>@item.UnitPrice.ToString("#,0") تومان</strong>
+                                    </td>
+                                    <td>
+                                        <strong>@item.Count</strong>
+                                    </td>
+                                    @{
+                                        int price = (item.Count * item.UnitPrice);
+
+                                    }
+                                    <td>
+                                        <strong>@price.ToString("#,0")</strong>
+                                    </td>
+                                    <td class="options" style="width:5%; text-align:center;">
+                                        <a href="/BuyCourse/RemoveDetail?courseId=@item.CourseId"><i class="icon-trash"></i></a>
+                                    </td>
+                                </tr>
+
+                            }
+
+                        </tbody>
+                    </table>
+                    <div class="cart-options clearfix">
+                        <div class="float-left">
+                            <div class="apply-coupon">
+                                <div class="form-group">
+                                    <input type="text" name="coupon-code" value="" placeholder="کد تخفیف شما" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <button type="button" class="btn_1 outline">اعمال کوپن</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="float-right fix_mobile">
+                            <button type="button" class="btn_1 outline">بروزرسانی سبد</button>
+                        </div>
+                    </div>
+
+                }
+                <!-- /cart-options -->
+            </div>
+        </div>
+        <!-- /col -->
+        @if (Model == null || Model.Item1.Count()==0)
+        {
+
+        }
+        else
+        {
+            <aside class="col-lg-4" id="sidebar" style="position: relative; overflow: visible; box-sizing: border-box; min-height: 1px;">
+
+                <div class="theiaStickySidebar" style="padding-top: 0px; padding-bottom: 1px; position: static; transform: none; top: 0px; left: 373px;">
+                    <div class="box_detail">
+                        <div id="total_cart">
+                            جمع <span class="float-right">@Model.Item2.ToString("#,0")تومان</span>
+                        </div>
+                        <hr>
+                        <div class="add_bottom_30">  کاربر گرامی با دو روش زیر می توانید محصول مورد نظر خود را خریداری نمایید</div>
+                        <ul>
+                            <li><i class="icon-left-dir"></i> موجودی کیف پول شما  : <span> @wallet.ToString("#,0")تومان  </span></li>
+
+                        </ul>
+                        @if (wallet < Model.Item2)
+                        {
+                            <a href="/BuyCourse/BuyByWallet" class="btn_1 full-width btn disabled">پرداخت از کیف پول</a>
+                            <div class="alert alert-warning"> موجودی کیف پول شما کافی نمی باشد. با استفاده از این <a href="/UserPanel/Wallet/Index">لینک </a>اقدام به شارژ آن نمایید </div>
+                        }
+                        else
+                        {
+                            <a href="/BuyCourse/BuyByWallet" class="btn_1 full-width ">پرداخت از کیف پول</a>
+                        }
+                        <form action="/BuyCourse/BuyCourseDirectly" method="post" >
+                            <input type="hidden" value="@Model.Item2" name="amount" >
+                            <input type="submit" class="btn_1 full-width" value="پرداخت درگاه زرین پال" >
+                        </form>
+                    </div><div class="resize-sensor" style="position: absolute; inset: 0px; overflow: hidden; z-index: -1; visibility: hidden;"><div class="resize-sensor-expand" style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; overflow: hidden; z-index: -1; visibility: hidden;"><div style="position: absolute; left: 0px; top: 0px; transition: all 0s ease 0s; width: 390px; height: 543px;"></div></div><div class="resize-sensor-shrink" style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; overflow: hidden; z-index: -1; visibility: hidden;"><div style="position: absolute; left: 0; top: 0; transition: 0s; width: 200%; height: 200%"></div></div></div>
+                </div>
+            </aside>
+
+        }
+    </div>
+    <!-- /row -->
+</div>

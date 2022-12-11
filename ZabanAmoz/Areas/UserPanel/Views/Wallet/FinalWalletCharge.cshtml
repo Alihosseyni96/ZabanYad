@@ -1,0 +1,35 @@
+﻿
+<ol class="breadcrumb">
+    <li class="breadcrumb-item">
+        <a href="#">داشبورد</a>
+    </li>
+    <li class="breadcrumb-item active"> کیف پول و تراکنش های شما  </li>
+</ol>
+<div class="box_cart">
+    <div class="form_title">
+        <h3><strong></strong>  وضعیت پرداخت </h3>
+    </div>
+    
+    <div class="step">
+        <div class="row">
+
+            <script>
+                // Your delay in milliseconds
+                var delay = 5000;
+                setTimeout(function () { window.location = "https://localhost:44395/UserPanel/Wallet/Index"; }, delay);
+            </script>
+
+
+
+            @if (ViewBag.SuccessPayment==true)
+            {
+                <div class="alert alert-success"> پرداخت شما با موفقیت انجام گردیده  تا چند ثانیه دیگر به صفحه تراکنش های خود منتقل می شوید. (شناسه تراکنش :@ViewBag.PaymentCode) </div>
+            }
+            else
+            {
+                    <div class="alert alert-warning"> پرداخت با خطا مواجه شده است </div>
+            }
+        
+    </div>
+</div>
+<hr>

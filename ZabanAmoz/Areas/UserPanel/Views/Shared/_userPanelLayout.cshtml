@@ -1,0 +1,171 @@
+﻿@inject IUserPanelService _userPanelService
+
+@{
+    int unredMessages = _userPanelService.UnReadMessages();
+    int unreadAdminMessage = _userPanelService.UnReadAdminMessage();
+}
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+
+<!-- Mirrored from mwhtml.ir/udema/admin_section/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 12 Sep 2022 19:56:41 GMT -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Ansonika">
+    <title>ZabanYad - UserPanel</title>
+
+    <!-- Favicons-->
+    <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" type="/image/x-icon" href="/img/apple-touch-icon-57x57-precomposed.png">
+    <link rel="apple-touch-icon" type="/image/x-icon" sizes="72x72" href="/img/apple-touch-icon-72x72-precomposed.png">
+    <link rel="apple-touch-icon" type="/image/x-icon" sizes="114x114" href="/img/apple-touch-icon-114x114-precomposed.png">
+    <link rel="apple-touch-icon" type="/image/x-icon" sizes="144x144" href="/img/apple-touch-icon-144x144-precomposed.png">
+    <!--index css-->
+    <!--index css-->
+    <!--User Panel Css -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/style.css" rel="stylesheet">
+    <link href="/css/vendors.css" rel="stylesheet">
+    <link href="/css/icon_fonts/css/all_icons.min.css" rel="stylesheet">
+    <link href="~/css/stylesheet.css" rel="stylesheet" />
+    <!-- YOUR CUSTOM CSS -->
+    <link href="/css/custom.css" rel="stylesheet">
+    <!--User Panel Css -->
+    <!-- Bootstrap core CSS-->
+    <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Main styles -->
+    <link href="/css/admin.css" rel="stylesheet">
+    <!-- Icon fonts-->
+    <link href="/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <!-- Plugin styles -->
+    <link href="/vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
+    <!-- Your custom styles -->
+    <link href="/css/custom.css" rel="stylesheet">
+
+</head>
+
+<body class="fixed-nav sticky-footer" id="page-top">
+    <!-- Navigation-->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-default fixed-top" id="mainNav">
+        <a class="navbar-brand" href="index.html"><img src="/img/logo.png" data-retina="true" alt="" width="163" height="36"></a>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
+                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Messages">
+                    <a class="nav-link" href="/UserPanel/Home/Index">
+                        <i class="fa fa-fw fa-envelope-open"></i>
+                        <span class="nav-link-text">اطلاعات کاربری شما </span>
+                    </a>
+                </li>
+                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Reviews">
+                    <a class="nav-link" href="/UserPanel/Home/EditUserPanelDetails">
+                        <i class="fa fa-fw fa-star"></i>
+                        <span class="nav-link-text">ویرایش اطلاعات کاربری</span>
+                    </a>
+                </li>
+
+                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Bookings">
+                    <a class="nav-link" href="/UserPanel/Message/Index">
+                        <i class="fa fa-fw fa-archive"></i>
+                        <span class="nav-link-text">پیام های دریافتی   <span class="badge badge-pill badge-primary">@unredMessages جدید</span></span>
+                    </a>
+                </li>
+                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Bookmarks">
+                    <a class="nav-link" href="/UserPanel/Message/SendMessage">
+                        <i class="fa fa-fw fa-heart"></i>
+                        <span class="nav-link-text">ارسال پیام جدید  </span>
+                    </a>
+                </li>
+                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Add listing">
+                    <a class="nav-link" href="/UserPanel/Message/ShowSendMessages">
+                        <i class="fa fa-fw fa-plus-circle"></i>
+                        <span class="nav-link-text">پیام های ارسال شده </span>
+                    </a>
+                </li>
+                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Add listing">
+                    <a class="nav-link" href="/UserPanel/Message/ShowAdminMessage">
+                        <i class="fa fa-fw fa-plus-circle"></i>
+                        <span class="nav-link-text">پیام های مدیریت  <span class="badge badge-pill badge-primary">@unreadAdminMessage جدید</span>  </span>
+                    </a>
+                </li>
+
+                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Add listing">
+                    <a class="nav-link" href="/UserPanel/Wallet/Index">
+                        <i class="fa fa-fw fa-plus-circle"></i>
+                        <span class="nav-link-text">  کیف پول و تراکنش ها  </span>
+                    </a>
+                </li>
+                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Add listing">
+                    <a class="nav-link" href="/BuyCourse/ShowCart">
+                        <i class="fa fa-fw fa-plus-circle"></i>
+                        <span class="nav-link-text">  سبد خرید جاری      </span>
+                    </a>
+                </li>
+                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Add listing">
+                    <a class="nav-link" href="/UserPanel/Home/ShowPurchasedCourses">
+                        <i class="fa fa-fw fa-plus-circle"></i>
+                        <span class="nav-link-text">  دوره های خریداری شده        </span>
+                    </a>
+                </li>
+            </ul>
+            <ul class="navbar-nav sidenav-toggler">
+                <li class="nav-item">
+                    <a class="nav-link text-center" id="sidenavToggler">
+                        <i class="fa fa-fw fa-angle-left"></i>
+                    </a>
+                </li>
+            </ul>
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a href="/Home/Index" class="nav-link btn_1 rounded"> بازگشت به صفحه اصلی سایت</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <!-- /Navigation-->
+
+    <div class="content-wrapper">
+        @RenderBody()
+    </div>
+    <!-- /.container-wrapper-->
+    <footer class="sticky-footer">
+        <div class="container">
+            <div class="text-center">
+            </div>
+        </div>
+    </footer>
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fa fa-angle-up"></i>
+    </a>
+    <!-- Logout Modal-->
+    <!-- Bootstrap core JavaScript-->
+    <script src="/vendor/jquery/jquery.min.js"></script>
+    <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- Core plugin JavaScript-->
+    <script src="/vendor/jquery-easing/jquery.easing.min.js"></script>
+    <!-- Page level plugin JavaScript-->
+    <script src="/vendor/chart.js/Chart.js"></script>
+    <script src="/vendor/datatables/jquery.dataTables.js"></script>
+    <script src="/vendor/datatables/dataTables.bootstrap4.js"></script>
+    <script src="/vendor/jquery.selectbox-0.2.js"></script>
+    <script src="/vendor/retina-replace.min.js"></script>
+    <script src="/vendor/jquery.magnific-popup.min.js"></script>
+    <!-- Custom scripts for all pages-->
+    <script src="/js/admin.js"></script>
+    <!-- Custom scripts for this page-->
+    <script src="/js/admin-charts.js"></script>
+
+</body>
+
+<!-- Mirrored from mwhtml.ir/udema/admin_section/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 12 Sep 2022 19:57:06 GMT -->
+</html>
+
+@RenderSection("Scripts",false)

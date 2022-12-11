@@ -1,0 +1,20 @@
+﻿@model IEnumerable<ShowGroupsViewModel>
+
+
+@foreach (var mainGroup in Model.Where(g => g.ParrentId == null))
+{
+    <li class="text-left">
+        <span><a href="/CourseList/Index?groupIds=@mainGroup.GroupId">@mainGroup.GroupTitle</a></span>
+        @if (Model.Any(g => g.ParrentId == mainGroup.GroupId))
+        {
+            <ul>
+                @foreach (var subGroup in Model.Where(g => g.ParrentId == mainGroup.GroupId))
+                {
+                    <li class="text-left"><a href="/CourseList/Index?groupIds=@subGroup.GroupId"> @subGroup.GroupTitle</a></li>
+                }
+            </ul>
+        }
+    </li>
+
+}
+
